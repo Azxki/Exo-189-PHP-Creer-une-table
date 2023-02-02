@@ -60,8 +60,45 @@
  */
 
 // TODO Votre code ici.
+<?php
+
+    $username = 'root';
+    $password = '';
+
 
 try {
-    ...
+    $db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', $username, $password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+    $utilisateur = "CREATE TABLE utilisateur (
+          id UNSIGNED AUTO_INCREMENT,
+          nom VARCHAR(50) NOT NULL,
+          prenom VARCHAR(50) NOT NULL,
+          email NOT NULL VARCHAR(100),
+          password NOT NULL VARCHAR(100),
+          adresse NOT NULL VARCHAR(255),
+          code postal NOT NULL VARCHAR(6),
+          pays NOT NULL VARCHAR(20),
+          date_join DATETIME DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(email)
+        )
+        ";
+
+    $produit = "CREATE TABLE utilisateur (
+          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+          titre NOT NULL VARCHAR(50),
+          prix NOT NULL DOUBLE(2,2),
+          description_courte NOT NULL VARCHAR(150),
+          description_longue NOT NULL VARCHAR(150)
+        )
+        ";
+
+    $db->exec($utilisateur);
+    $db->exec($produit);
+
+    echo "Table crée";
 }
-catch...
+catch (PDOException $exception) {
+    echo $exception->getMessage();
+}
